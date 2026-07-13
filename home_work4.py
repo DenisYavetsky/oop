@@ -4,7 +4,7 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
-        self.grades = {'python': [3,4], 'java': [6,7,8], 'c++': [9,10,11]}
+        self.grades = {}
 
 
 class Lecturer(Mentor):
@@ -52,7 +52,7 @@ class Student:
         self.gender = gender
         self.finished_courses = []
         self.courses_in_progress = []
-        self.grades = {'python': [3,4], 'java': [6,7,8], 'c++': [9,10,11]}
+        self.grades = {}
 
     def __eq__(self, other):
         return bool(self.average_rate() == other.average_rate())
@@ -90,37 +90,22 @@ class Student:
         lecturer.grades.setdefault(course, []).append(rate)
 
 
-def compare_students(students , course):
-    compare_result = []
-
-    for grade in student1.grades:
-        if grade in student2.grades:
-            average_course1 = round(sum(student1.grades[grade]) / len(student1.grades[grade]), 1)
-            average_course2 = round(sum(student2.grades[grade]) / len(student2.grades[grade]), 1)
-            if average_course1 > average_course2:
-                mess = f'По курсу {grade} студент {student1.name} занимается лучше студента {student2.name}'
-            elif average_course2 > average_course1:
-                mess = f'По курсу {grade} студент {student2.name} занимается лучше студента {student1.name}'
-            else:
-                mess = f'По курсу {grade} студенты {student2.name}, {student1.name} одинаково хорошо занимаются'
-            compare_result.append(mess)
-    return compare_result
+def average_students(students , course):
+    result = []
+    for student in students:
+        if course in student.grades:
+            result.append(round(sum(student.grades[course]) / len(student.grades[course]), 1))
+    if result:
+        return round(sum(result) / len(result), 1)
+    return 0
 
 
-def compare_lectures(lecture1, lecture2):
-    compare_result = []
-    # имеет смысл сравнивать только совпдающие курсы
-    for grade in lecture1.grades:
-        if grade in lecture2.grades:
-            average_course1 = round(sum(lecture1.grades[grade]) / len(lecture1.grades[grade]), 1)
-            average_course2 = round(sum(lecture2.grades[grade]) / len(lecture2.grades[grade]), 1)
-            if average_course1 > average_course2:
-                mess = f'По курсу {grade} лектор {lecture1.name} преподает лучше лектора {lecture2.name}'
-            elif average_course2 > average_course1:
-                mess = f'По курсу {grade} лектор {lecture2.name} преподает лучше лектора {lecture1.name}'
-            else:
-                mess = f'По курсу {grade} лекторы {lecture2.name}, {lecture1.name} одинаково хорошо преподают'
-            compare_result.append(mess)
-    return compare_result
-
+def average_lectures(lectures , course):
+    result = []
+    for lecture in lectures:
+        if course in lecture.grades:
+            result.append(round(sum(lecture.grades[course]) / len(lecture.grades[course]), 1))
+    if result:
+        return round(sum(result) / len(result), 1)
+    return 0
 
