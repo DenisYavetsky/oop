@@ -4,7 +4,7 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
-        self.grades = {'python': [3,4], 'java': [6,7,8], 'c++': [9,10,11]}
+        self.grades = {}
 
 
 class Lecturer(Mentor):
@@ -52,7 +52,7 @@ class Student:
         self.gender = gender
         self.finished_courses = []
         self.courses_in_progress = []
-        self.grades = {'python': [3,4], 'java': [6,7,8], 'c++': [9,10,11]}
+        self.grades = {}
 
     def __eq__(self, other):
         return bool(self.average_rate() == other.average_rate())

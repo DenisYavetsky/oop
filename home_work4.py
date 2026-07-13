@@ -90,9 +90,9 @@ class Student:
         lecturer.grades.setdefault(course, []).append(rate)
 
 
-def compare_students(student1, student2):
+def compare_students(students , course):
     compare_result = []
-    # имеет смысл сравнивать только совпдающие курсы
+
     for grade in student1.grades:
         if grade in student2.grades:
             average_course1 = round(sum(student1.grades[grade]) / len(student1.grades[grade]), 1)
