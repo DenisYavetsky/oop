@@ -109,3 +109,58 @@ def average_lectures(lectures , course):
         return round(sum(result) / len(result), 1)
     return 0
 
+
+reviewer = Reviewer("God", "My")
+reviewer.courses_attached.append('Python')
+reviewer.courses_attached.append('Java')
+reviewer.courses_attached.append('C++')
+
+student_1 = Student("Max", "Pain", "M")
+student_2 = Student("Neo", "Neo", "M")
+
+lecturer_1 = Lecturer("Torr", "Torr")
+lecturer_2 = Lecturer("Halk", "Bruce")
+
+lecturer_1.courses_attached.append('Python')
+lecturer_2.courses_attached.append('Python')
+lecturer_1.courses_attached.append('Java')
+lecturer_2.courses_attached.append('Java')
+lecturer_1.courses_attached.append('C++')
+lecturer_2.courses_attached.append('C++')
+
+student_1.courses_in_progress.append('Python')
+student_1.courses_in_progress.append('Java')
+student_1.courses_in_progress.append('C++')
+
+student_2.courses_in_progress.append('Python')
+student_2.courses_in_progress.append('Java')
+student_2.courses_in_progress.append('C++')
+
+reviewer.rate_hw(student_1, "Python", 5)
+reviewer.rate_hw(student_1, "Java", 6)
+reviewer.rate_hw(student_1, "C++", 7)
+reviewer.rate_hw(student_2, "Python", 6)
+reviewer.rate_hw(student_2, "Java", 7)
+reviewer.rate_hw(student_2, "C++", 8)
+
+print(student_1)
+print(average_students([student_1, student_2], "Python"))
+print(student_1 == student_2)
+
+student_1.rate_lecture(lecturer_1, "Python", 4)
+student_1.rate_lecture(lecturer_1, "Java", 4)
+student_1.rate_lecture(lecturer_1, "C++", 4)
+student_1.rate_lecture(lecturer_2, "Python", 5)
+student_1.rate_lecture(lecturer_2, "Java", 5)
+student_1.rate_lecture(lecturer_2, "C++", 5)
+
+student_2.rate_lecture(lecturer_1, "Python", 8)
+student_2.rate_lecture(lecturer_1, "Java", 8)
+student_2.rate_lecture(lecturer_1, "C++", 8)
+student_2.rate_lecture(lecturer_2, "Python", 8)
+student_2.rate_lecture(lecturer_2, "Java", 8)
+student_2.rate_lecture(lecturer_2, "C++", 8)
+
+
+print(lecturer_1)
+print(average_students([lecturer_1, lecturer_2], "Python"))
