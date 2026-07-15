@@ -1,4 +1,3 @@
-
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
@@ -27,13 +26,13 @@ class Lecturer(Mentor):
         return bool(self.average_rate() < other.average_rate())
 
     def __str__(self):
-        return f'Имя: {self.surname}\nФамилия: {self.name}\nСредняя оценка за лекции: {self.average_rate()}'
+        return f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.average_rate()}'
 
 
 class Reviewer(Mentor):
 
     def __str__(self):
-        return f'Имя: {self.surname}\nФамилия: {self.name}'
+        return f'Имя: {self.name}\nФамилия: {self.surname}'
 
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
@@ -64,7 +63,7 @@ class Student:
         return bool(self.average_rate() < other.average_rate())
 
     def __str__(self):
-        return (f'Имя: {self.surname}\nФамилия: {self.name}\nСредняя оценка за домашние задания: {self.average_rate()}\n'
+        return (f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашние задания: {self.average_rate()}\n'
                 f'Курсы в процессе изучения: {", ".join(self.courses_in_progress)}\n'
                 f'Завершенные курсы: {", ".join(self.finished_courses)}')
 
@@ -76,8 +75,7 @@ class Student:
             return round(sum(course_grades) / len(course_grades), 1)
         return 0
 
-    @staticmethod
-    def rate_lecture(lecturer, course, rate):
+    def rate_lecture(self, lecturer, course, rate):
         if isinstance(lecturer, Reviewer):
             return 'Ошибка'
 
@@ -110,10 +108,12 @@ def average_lectures(lectures , course):
     return 0
 
 
-reviewer = Reviewer("God", "My")
+reviewer = Reviewer("My", "Gof")
 reviewer.courses_attached.append('Python')
 reviewer.courses_attached.append('Java')
 reviewer.courses_attached.append('C++')
+print(reviewer)
+
 
 student_1 = Student("Max", "Pain", "M")
 student_2 = Student("Neo", "Neo", "M")
@@ -143,6 +143,11 @@ reviewer.rate_hw(student_2, "Python", 6)
 reviewer.rate_hw(student_2, "Java", 7)
 reviewer.rate_hw(student_2, "C++", 8)
 
+# ошибки
+print(reviewer.rate_hw(student_1, "Delphi", 5))
+print(reviewer.rate_hw(student_2, "1C", 5))
+
+
 print(student_1)
 print(average_students([student_1, student_2], "Python"))
 print(student_1 == student_2)
@@ -154,12 +159,21 @@ student_1.rate_lecture(lecturer_2, "Python", 5)
 student_1.rate_lecture(lecturer_2, "Java", 5)
 student_1.rate_lecture(lecturer_2, "C++", 5)
 
+# ошибки
+print(student_1.rate_lecture(lecturer_1, "1C", 6))
+print(student_2.rate_lecture(lecturer_2, "Delphi", 3))
+print(student_2.rate_lecture(lecturer_2, "Delphi", 11))
+###############################################################
+
 student_2.rate_lecture(lecturer_1, "Python", 8)
 student_2.rate_lecture(lecturer_1, "Java", 8)
 student_2.rate_lecture(lecturer_1, "C++", 8)
 student_2.rate_lecture(lecturer_2, "Python", 8)
 student_2.rate_lecture(lecturer_2, "Java", 8)
 student_2.rate_lecture(lecturer_2, "C++", 8)
+
+
+print(student_2.rate_lecture(reviewer, "C++", 8))
 
 
 print(lecturer_1)
